@@ -50,17 +50,23 @@ class _ThemChiTieuScreenState extends State<ThemChiTieuScreen> {
             ElevatedButton(
               onPressed: () {
                 if (_soTienController.text.isNotEmpty) {
-                  final chiTieu = ChiTieu(
-                    id: Uuid().v4(),
-                    soTien: double.parse(_soTienController.text),
-                    danhMuc: _danhMuc,
-                    ngay: DateTime.now(),
-                  );
-                  _luuChiTieu(chiTieu);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Đã thêm chi tiêu')),
-                  );
-                  Navigator.pop(context);
+                  try {
+                    final chiTieu = ChiTieu(
+                      id: Uuid().v4(),
+                      soTien: double.parse(_soTienController.text),
+                      danhMuc: _danhMuc,
+                      ngay: DateTime.now(),
+                    );
+                    _luuChiTieu(chiTieu);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Đã thêm chi tiêu')),
+                    );
+                    Navigator.pop(context);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Vui lòng nhập số hợp lệ')),
+                    );
+                  }
                 }
               },
               child: Text('Lưu'),
